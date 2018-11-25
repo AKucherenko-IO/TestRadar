@@ -28,7 +28,6 @@ class ViewController: UIViewController {
 //        let myView = ShapeView(frame: CGRect(x: viewRectX, y: viewRectY, width: rectSize, height: rectSize ), shape: 2)
 //        myView.backgroundColor = UIColor.cyan
 //        self.view.addSubview(myView)
-        
     }
 
 
