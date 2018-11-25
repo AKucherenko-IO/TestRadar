@@ -10,19 +10,19 @@ import UIKit
 
 //@IBDesignable
 
-
 class ShapeView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-  
-    let lineWidht: CGFloat = 2
     
+    //MARK: Define parameters
+    let lineWidht: CGFloat = 2
+    let numberOfCircles: Int = 4
+    let numberOfPlanes: Int = 100
+    let planeDimention: CGFloat = 10
+    let dimentionDelta: CGFloat = 5
+    let cirlcleColor: UIColor = UIColor.green
+    let circleBorderColor: UIColor = UIColor.black
+
+    //MARK: - init View with param
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupView()
@@ -32,59 +32,83 @@ class ShapeView: UIView {
         backgroundColor = .white
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight =  UIScreen.main.bounds.height
-        print("width:\(screenWidth) height:\(screenHeight)")
+        print("Screen: width:\(screenWidth) height:\(screenHeight)")
 
         let rectSize = screenWidth > screenHeight ? screenHeight : screenWidth
         let viewRectX: CGFloat = 0;
         let viewRectY: CGFloat = screenHeight/2.0 - rectSize/2.0
 
         self.frame = CGRect(x: viewRectX, y: viewRectY, width:rectSize, height:rectSize)
- 
         
     }
     
+    //MARK: Draw Radar
     override func draw(_ rect: CGRect) {
         
+     
 
-        let numberOfCircles: Int = 10
-        let numberOfPlanes: Int = 10
-        let planeDimention: CGFloat = 5
-        let cirlcleColog: UIColor = UIColor.green
-
-        let screenWidth = self.frame.size.width
-        let screenHeight = self.frame.size.height
-        let center = CGPoint(x: screenWidth / 2.0, y:screenHeight / 2.0)
-        print ("Circle: center: \(center) frame: \(self.frame.size.width) \(self.frame.size.height)")
-        var radius: CGFloat = center.x < center.y ? center.x - lineWidht : center.y - lineWidht
+        let frameSize = self.frame.size.width
+        let halfFrameSize = frameSize / 2.0
+        let center = CGPoint(x: halfFrameSize, y:halfFrameSize)
+        print ("Circle: center: \(center) frame: \(frameSize) \(frameSize)")
+        var radius: CGFloat = halfFrameSize - lineWidht
         let radiusDelta: CGFloat = radius / CGFloat(numberOfCircles)
-
+        
+        //MARK: -  Generate Radar Circles
         for _ in 1...numberOfCircles {
-            drawCircle(center: center, radius: radius, color: cirlcleColog.cgColor)
+            drawCircle(center: center, radius: radius)
             radius = radius - radiusDelta
         }
+        
+        let planeR = sqrt(2)/2 * planeDimention
         var i: Int = 1;
-        let radarBorder  = powf(160,2)
-      while  (i <= numberOfPlanes) {
-            let planeLocationX = CGFloat.random(in: 0..<screenWidth)
-            let planeLocationY = CGFloat.random(in: 0..<screenHeight)
         
-            let conditionRule = Float(pow(planeLocationX-center.x,2) + pow(planeLocationY-center.y,2))
-        if (radarBorder >  conditionRule) {
-            let red = CGFloat.random(in: 0...1.0)
-            let green = CGFloat.random(in: 0...1.0)
-            let blue = CGFloat.random(in: 0...1.0)
-            let planeColor = UIColor (red: red, green: green, blue: blue, alpha: 1)
-            let planeLocation = CGPoint (x: planeLocationX, y: planeLocationY)
-            let planeSize = CGSize (width: planeDimention, height: planeDimention)
-            let plane = CGRect (origin: planeLocation, size: planeSize)
-            drawRectangle(size: plane, color: planeColor.cgColor)
-            i = i + 1
-        }
+        //MARK: - Generate Planes location
+        while  (i <= numberOfPlanes) {
+            
+            let planeLocationX = CGFloat.random(in: 0..<frameSize)
+            let planeLocationY = CGFloat.random(in: 0..<frameSize)
+            
+            if (checkPosition(x: planeLocationX, y: planeLocationY, radius: 160, planeRadius: planeR , center: center)) {
+                let randomColor = generateRandomColor()
+                let planeColor = UIColor (red: randomColor.red, green: randomColor.green, blue: randomColor.blue, alpha: 1)
+                let planeLocation = CGPoint (x: planeLocationX, y: planeLocationY)
+                let planeSize = CGSize (width: planeDimention, height: planeDimention)
+                let plane = CGRect (origin: planeLocation, size: planeSize)
+                drawRectangle(size: plane, color: planeColor.cgColor)
+                i = i + 1
+            }
+            
         }
     }
-    func checkPosition(){
+    
+    func  generateRandomColor() -> (red: CGFloat, green: CGFloat, blue: CGFloat) {
         
+        let red = CGFloat.random(in: 0...1.0)
+        let green = CGFloat.random(in: 0...1.0)
+        let blue = CGFloat.random(in: 0...1.0)
+        return (red, green, blue )
     }
+    
+    func checkPosition(x: CGFloat, y: CGFloat, radius: CGFloat, planeRadius: CGFloat, center: CGPoint) -> Bool {
+        
+        var isInsideArea = false
+        let halfSize = planeDimention / 2.0
+        let planeCenterX = x + halfSize
+        let planeCenterY = y + halfSize
+        let xDelta = planeCenterX - center.x
+        let yDelta = planeCenterY - center.y
+        let correction = radius - planeRadius - lineWidht - dimentionDelta
+        let radarBorder  = pow(correction,2)
+        let conditionRule = pow(xDelta,2) + pow(yDelta,2)
+        if (radarBorder > conditionRule ) {
+            isInsideArea = true
+            print ("\(radarBorder) > \(conditionRule) x:\(x) y:\(y) radius:\(radius) palane R:\(planeRadius) center:\(center)")
+        }
+        
+        return  isInsideArea
+    }
+    
     func drawLines() {
 //        //1
 //        let ctx = UIGraphicsGetCurrentContext()
@@ -103,6 +127,7 @@ class ShapeView: UIView {
 //        ctx?.strokePath()
     }
     
+    //MARK: Draw Plane
     func drawRectangle(size: CGRect, color: CGColor) {
         let ctx = UIGraphicsGetCurrentContext()
         
@@ -111,11 +136,12 @@ class ShapeView: UIView {
         ctx?.setLineWidth(lineWidht+2)
         ctx?.setStrokeColor(color)
         ctx?.strokePath()
-        ctx?.setFillColor(color)
-        ctx?.fillPath()
+//        ctx?.setFillColor(color)
+//        ctx?.fillPath()
     }
     
-    func drawCircle(center: CGPoint, radius: CGFloat, color: CGColor) {
+    //MARK: - Draw Circle
+    func drawCircle(center: CGPoint, radius: CGFloat) {
         
         let ctx = UIGraphicsGetCurrentContext()
         ctx?.beginPath()
@@ -123,11 +149,9 @@ class ShapeView: UIView {
         ctx?.addArc(center: center, radius: radius, startAngle: 0, endAngle: endAngle, clockwise: true)
         ctx?.setLineWidth(lineWidht)
         
-        ctx?.setStrokeColor(color)
+        ctx?.setStrokeColor(cirlcleColor.cgColor)
         ctx?.strokePath()
         
-        ctx?.setFillColor(color)
-        ctx?.fillPath()
     }
 
 }
