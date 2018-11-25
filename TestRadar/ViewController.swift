@@ -22,10 +22,13 @@ class ViewController: UIViewController {
 //        let rectSize = screenWidth > screenHeight ? screenHeight : screenWidth
 //        let viewRectX: CGFloat = 0;
 //        let viewRectY: CGFloat = screenHeight/2.0 - rectSize/2.0
+//        ShapeView.frame CGRect(x: viewRectX, y: viewRectY, width:rectSize, height:rectSize)
+        
 //        //        let center = CGPoint(x:  screenWidth/2.0, y: screenHeight/2.0)
 //        let myView = ShapeView(frame: CGRect(x: viewRectX, y: viewRectY, width: rectSize, height: rectSize ), shape: 2)
 //        myView.backgroundColor = UIColor.cyan
 //        self.view.addSubview(myView)
+        
     }
 
 

@@ -20,20 +20,54 @@ class ShapeView: UIView {
         // Drawing code
     }
     */
-    let currentShapeType: Int = 2
+  
     let lineWidht: CGFloat = 2
+    
+//    override init(frame: CGRect) {
+//
+//
+//        super.init(frame: frame)
+//
+//        let screenWidth = UIScreen.main.bounds.width
+//        let screenHeight =  UIScreen.main.bounds.height
+//        print("width:\(screenWidth) height:\(screenHeight)")
+//
+//        let rectSize = screenWidth > screenHeight ? screenHeight : screenWidth
+//        let viewRectX: CGFloat = 0;
+//        let viewRectY: CGFloat = screenHeight/2.0 - rectSize/2.0
+//
+//
+//        ShapeView.frame CGRect(x: viewRectX, y: viewRectY, width:rectSize, height:rectSize)
+//    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupView()
+    }
+    
+    private func setupView() {
+        backgroundColor = .red
+    }
     
     override func draw(_ rect: CGRect) {
         
+//        let currentShapeType: Int = 2
+        let numberOfCircles: Int = 20
+        
+
+        
         let center = CGPoint(x: self.frame.size.width / 2.0, y:self.frame.size.height / 2.0)
         print ("Circle: center: \(center) frame: \(self.frame.size.width) \(self.frame.size.height)")
-        let radius: CGFloat = center.x < center.y ? center.x - lineWidht : center.y - lineWidht
-        
-        switch currentShapeType {
-        case 0: drawLines()
-        case 1: drawRectangle()
-        case 2: drawCircle(center: center, radius: radius)
-        default: print("default")
+        var radius: CGFloat = center.x < center.y ? center.x - lineWidht : center.y - lineWidht
+        let radiusDelta: CGFloat = radius / CGFloat(numberOfCircles)
+//        switch currentShapeType {
+//        case 0: drawLines()
+//        case 1: drawRectangle()
+//        case 2: drawCircle(center: center, radius: radius)
+//        default: print("default")
+        for i in 1...numberOfCircles {
+            drawCircle(center: center, radius: radius)
+            radius = radius - radiusDelta
         }
     }
     
