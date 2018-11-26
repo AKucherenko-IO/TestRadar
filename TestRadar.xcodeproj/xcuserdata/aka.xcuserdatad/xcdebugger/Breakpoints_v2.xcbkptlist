@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestRadar/ShapeView.swift"
-            timestampString = "564881974.334529"
+            timestampString = "564911058.623575"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "draw(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestRadar/ShapeView.swift"
-            timestampString = "564881974.351801"
+            timestampString = "564911058.624911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "drawRectangle(size:color:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestRadar/ShapeView.swift"
-            timestampString = "564881974.352811"
+            timestampString = "564911058.625966"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "draw(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,28 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestRadar/ShapeView.swift"
-            timestampString = "564881974.353965"
+            timestampString = "564911058.627079"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "draw(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TestRadar/ShapeView.swift"
-            timestampString = "564881974.355226"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "checkPosition(x:y:radius:planeRadius:center:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestRadar/ShapeView.swift"
-            timestampString = "564881974.356159"
+            timestampString = "564911058.628569"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "checkPosition(x:y:radius:planeRadius:center:)"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "checkPosition(x:y:radius:planeRadius:center:delta:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -106,12 +90,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestRadar/ShapeView.swift"
-            timestampString = "564881974.3569781"
+            timestampString = "564911058.629567"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "draw(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TestRadar/ShapeView.swift"
+            timestampString = "564911058.630453"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "checkPosition(x:y:radius:planeRadius:center:delta:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

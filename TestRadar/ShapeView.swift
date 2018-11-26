@@ -18,7 +18,7 @@ class ShapeView: UIView {
     let numberOfCircles: Int = 4
     let numberOfPlanes: Int = 100
     let planeDimention: CGFloat = 10
-    let dimentionDelta: CGFloat = 5
+    let dimentionDelta: CGFloat = 2
     let cirlcleColor: UIColor = UIColor.green
     let circleBorderColor: UIColor = UIColor.black
 
@@ -55,9 +55,12 @@ class ShapeView: UIView {
         let radiusDelta: CGFloat = radius / CGFloat(numberOfCircles)
         
         //MARK: -  Generate Radar Circles
+        var radiusRadarArray: [CGFloat] = []
         for _ in 1...numberOfCircles {
             drawCircle(center: center, radius: radius)
-            radius = radius - radiusDelta
+            radiusRadarArray.append(radius)
+            radius -= radiusDelta
+            
         }
         
         let planeR = sqrt(2)/2 * planeDimention
@@ -69,7 +72,7 @@ class ShapeView: UIView {
             let planeLocationX = CGFloat.random(in: 0..<frameSize)
             let planeLocationY = CGFloat.random(in: 0..<frameSize)
             
-            if (checkPosition(x: planeLocationX, y: planeLocationY, radius: 160, planeRadius: planeR , center: center)) {
+            if (checkPosition(x: planeLocationX, y: planeLocationY, radius: radiusRadarArray, planeRadius: planeR , center: center, delta: radiusDelta)) {
                 let randomColor = generateRandomColor()
                 let planeColor = UIColor (red: randomColor.red, green: randomColor.green, blue: randomColor.blue, alpha: 1)
                 let planeLocation = CGPoint (x: planeLocationX, y: planeLocationY)
@@ -90,7 +93,7 @@ class ShapeView: UIView {
         return (red, green, blue )
     }
     
-    func checkPosition(x: CGFloat, y: CGFloat, radius: CGFloat, planeRadius: CGFloat, center: CGPoint) -> Bool {
+    func checkPosition(x: CGFloat, y: CGFloat, radius: Array<CGFloat>, planeRadius: CGFloat, center: CGPoint, delta: CGFloat) -> Bool {
         
         var isInsideArea = false
         let halfSize = planeDimention / 2.0
@@ -98,12 +101,20 @@ class ShapeView: UIView {
         let planeCenterY = y + halfSize
         let xDelta = planeCenterX - center.x
         let yDelta = planeCenterY - center.y
-        let correction = radius - planeRadius - lineWidht - dimentionDelta
-        let radarBorder  = pow(correction,2)
         let conditionRule = pow(xDelta,2) + pow(yDelta,2)
-        if (radarBorder > conditionRule ) {
+        var radarBorderIn = conditionRule - 10
+        let positionRadius = sqrt(conditionRule)
+        let sector = Int (abs((radius[0] - positionRadius)) / delta)
+        let correctionOut = radius[sector] - planeRadius - lineWidht - dimentionDelta
+        let radarBorderOut  = pow(correctionOut,2)
+        if (sector < radius.count - 1) {
+            let correctionIn = radius[sector+1] + planeRadius + lineWidht + dimentionDelta
+            radarBorderIn  = pow(correctionIn,2)
+        }
+
+        if (radarBorderOut > conditionRule)&&( conditionRule > radarBorderIn) {
             isInsideArea = true
-            print ("\(radarBorder) > \(conditionRule) x:\(x) y:\(y) radius:\(radius) palane R:\(planeRadius) center:\(center)")
+            print ("\(radarBorderOut) > \(conditionRule) x:\(x) y:\(y) radius:\(radius[sector]) palane R:\(planeRadius) center:\(center)")
         }
         
         return  isInsideArea
