@@ -15,13 +15,19 @@ class ShapeView: UIView {
     
     //MARK: Define parameters
     let lineWidht: CGFloat = 2
-    let numberOfCircles: Int = 4
-    let numberOfPlanes: Int = 100
-    let planeDimention: CGFloat = 10
+    let numberOfCircles: Int = 2
+    let numberOfPlanes: Int = 10
+    var planeDimention: CGFloat = 30
     let dimentionDelta: CGFloat = 2
     let cirlcleColor: UIColor = UIColor.green
     let circleBorderColor: UIColor = UIColor.black
-
+    
+    var allRandomPlanesInArea = [[AKPlane]]()
+//    var allPlanesInSector: Array <Int> = []
+    var randomPlanesInSector : Set <String> = Set()
+    var radiusRadarArray: [CGFloat] = []
+    var planeRadius: CGFloat = 0
+    
     //MARK: - init View with param
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -54,35 +60,69 @@ class ShapeView: UIView {
         var radius: CGFloat = halfFrameSize - lineWidht
         let radiusDelta: CGFloat = radius / CGFloat(numberOfCircles)
         
+        
         //MARK: -  Generate Radar Circles
-        var radiusRadarArray: [CGFloat] = []
-        for _ in 1...numberOfCircles {
+        for _ in 0..<numberOfCircles {
             drawCircle(center: center, radius: radius)
             radiusRadarArray.append(radius)
             radius -= radiusDelta
-            
+            let randomPlanesInArea = [AKPlane] ()
+            allRandomPlanesInArea.append(randomPlanesInArea)
+
         }
         
-        let planeR = sqrt(2)/2 * planeDimention
-        var i: Int = 1;
+        planeDimention =  radiusDelta > planeDimention ? planeDimention : radiusDelta/2
         
-        //MARK: - Generate Planes location
+        planeRadius = sqrt(2)/2 * planeDimention
+
+        //MARK: - Generate Planes locations
+        var i: Int = 1;
+  
         while  (i <= numberOfPlanes) {
             
             let planeLocationX = CGFloat.random(in: 0..<frameSize)
             let planeLocationY = CGFloat.random(in: 0..<frameSize)
-            
-            if (checkPosition(x: planeLocationX, y: planeLocationY, radius: radiusRadarArray, planeRadius: planeR , center: center, delta: radiusDelta)) {
-                let randomColor = generateRandomColor()
-                let planeColor = UIColor (red: randomColor.red, green: randomColor.green, blue: randomColor.blue, alpha: 1)
+            let (flag1, sector) = checkPosition(x: planeLocationX, y: planeLocationY, center: center, delta: radiusDelta)
+
+            if (flag1) {
                 let planeLocation = CGPoint (x: planeLocationX, y: planeLocationY)
                 let planeSize = CGSize (width: planeDimention, height: planeDimention)
                 let plane = CGRect (origin: planeLocation, size: planeSize)
+    
+                let randomColor = generateRandomColor()
+                let planeColor = UIColor (red: randomColor.red, green: randomColor.green, blue: randomColor.blue, alpha: 1)
                 drawRectangle(size: plane, color: planeColor.cgColor)
-                i = i + 1
+                randomPlanesInSector.insert(plane.debugDescription)
+                i += 1
             }
             
         }
+        
+    }
+    //MARK: Count Positions
+    func countPositionInSector(rMax:Int, rMin:Int) -> Int {
+        
+        var countedPlaneInSector = 0
+        var numberInCurCircle = 0
+        let planeRad = Int(planeRadius)
+        var rInArea = rMax - planeRad
+        let rMinCalc = rMin + planeRad
+        while (rInArea >= rMinCalc) {
+            let lCurCircle = 2 * Double(rInArea) * Double.pi
+            numberInCurCircle = Int(lCurCircle / (2*Double(planeRadius)))
+            countedPlaneInSector +=  numberInCurCircle
+            rInArea -= 2*planeRad
+        }
+        return countedPlaneInSector
+    }
+    
+    func testArray() {
+        var arr0: [Array<CGRect>] = []
+        var arr1: [CGRect] = []
+        let rect = CGRect.zero
+        arr1.append(rect)
+        arr0.append(arr1)
+        print(arr1)
     }
     
     func  generateRandomColor() -> (red: CGFloat, green: CGFloat, blue: CGFloat) {
@@ -92,50 +132,100 @@ class ShapeView: UIView {
         let blue = CGFloat.random(in: 0...1.0)
         return (red, green, blue )
     }
-    
-    func checkPosition(x: CGFloat, y: CGFloat, radius: Array<CGFloat>, planeRadius: CGFloat, center: CGPoint, delta: CGFloat) -> Bool {
+    func checkPlaneExistense (sector: Int, randomPlane: CGRect) -> Bool {
+//        let planeInThisSector = randomPlanesInSector[sector]
+//        let arraySize = planeInThisSector.
+//        if ( arraySize != 0 ){
+//
+//            for i in 0...arraySize {
+//
+//                if
+//            }
+//
+//        }
+        
+        return true
+    }
+    func checkPosition(x: CGFloat, y: CGFloat, center: CGPoint, delta: CGFloat) -> (flag:Bool , sector: Int) {
         
         var isInsideArea = false
+        var radarBorderIn = CGFloat(0)
         let halfSize = planeDimention / 2.0
         let planeCenterX = x + halfSize
         let planeCenterY = y + halfSize
         let xDelta = planeCenterX - center.x
         let yDelta = planeCenterY - center.y
         let conditionRule = pow(xDelta,2) + pow(yDelta,2)
-        var radarBorderIn = conditionRule - 10
         let positionRadius = sqrt(conditionRule)
-        let sector = Int (abs((radius[0] - positionRadius)) / delta)
-        let correctionOut = radius[sector] - planeRadius - lineWidht - dimentionDelta
+        var sector = Int (abs((radiusRadarArray[0] - positionRadius)) / delta)
+        sector = (positionRadius != 0 ) ? sector :  radiusRadarArray.count - 1
+      
+        let correctionOut = radiusRadarArray[sector] - planeRadius - lineWidht - dimentionDelta
         let radarBorderOut  = pow(correctionOut,2)
-        if (sector < radius.count - 1) {
-            let correctionIn = radius[sector+1] + planeRadius + lineWidht + dimentionDelta
+        if (sector < radiusRadarArray.count - 1) {
+            let correctionIn = radiusRadarArray[sector+1] + planeRadius + lineWidht + dimentionDelta
             radarBorderIn  = pow(correctionIn,2)
         }
 
-        if (radarBorderOut > conditionRule)&&( conditionRule > radarBorderIn) {
-            isInsideArea = true
-            print ("\(radarBorderOut) > \(conditionRule) x:\(x) y:\(y) radius:\(radius[sector]) palane R:\(planeRadius) center:\(center)")
+        if (radarBorderOut > conditionRule)&&( conditionRule >= radarBorderIn) {
+            
+           
+//            print ("\(radarBorderOut) > \(conditionRule) x:\(x) y:\(y) radius:\(radiusRadarArray[sector]) palane R:\(planeRadius) center:\(center)")
+            
+            
+
+            for savedPlane:AKPlane in allRandomPlanesInArea[sector] {
+                let generatedRect =  CGRect (x: x, y: y, width: planeDimention, height: planeDimention)
+                let savedRect = CGRect (origin: savedPlane.position, size: savedPlane.size)
+                if generatedRect.intersects(savedRect) {
+                    
+                    isInsideArea = false
+                    
+                    return (isInsideArea, sector)
+                }else{
+                    print ("\(sector)\tSAV:\(savedRect)\tGEN:\(generatedRect)")
+                    isInsideArea = true
+                    let genPlane = AKPlane ()
+                    genPlane.position = CGPoint (x: x, y: y)
+                    genPlane.size = CGSize (width: planeDimention, height: planeDimention)
+                    allRandomPlanesInArea[sector].append(genPlane)
+                    
+                    var planeImage:UIImageView?
+                    var image:UIImage = UIImage (named: "plane-2")!
+                    planeImage = UIImageView(image: image)
+                    planeImage!.frame = CGRect(origin: genPlane.position, size: genPlane.size)
+                    self.addSubview(planeImage!)
+                    
+                    if (positionRadius + planeRadius) >= radiusRadarArray[sector] {
+                        savedPlane.neighbors += 1
+                    }
+                    if ((positionRadius - planeRadius) <= radiusRadarArray[sector]-delta) {
+                        savedPlane.neighbors += 1
+                    }
+                    let nRect = CGRect (x: x-1, y: y-1, width: planeDimention+2, height: planeDimention+2)
+                    if nRect.intersects(savedRect) {
+                        savedPlane.neighbors += 1
+                    }
+                    
+                }
+            }
+            if (allRandomPlanesInArea[sector].count == 0) {
+                let genPlane = AKPlane ()
+                genPlane.position = CGPoint (x: x, y: y)
+                genPlane.size = CGSize (width: planeDimention, height: planeDimention)
+                allRandomPlanesInArea[sector].append(genPlane)
+                isInsideArea = true
+                
+                var planeImage:UIImageView?
+                var image:UIImage = UIImage (named: "plane-1")!
+                planeImage = UIImageView(image: image)
+                planeImage!.frame = CGRect(origin: genPlane.position, size: genPlane.size)
+                self.addSubview(planeImage!)
+                
+            }
         }
         
-        return  isInsideArea
-    }
-    
-    func drawLines() {
-//        //1
-//        let ctx = UIGraphicsGetCurrentContext()
-//
-//        //2
-//        (ctx ?? nil)!.beginPath()
-//
-//        ctx?.move(to: CGPoint(x:20.0, y:20.0))
-//        ctx?.move(to: CGPoint(x:20.0, y:20.0))
-//        ctx?.move(to: CGPoint(x:250.0, y:100.0))
-//        ctx?.move(to: CGPoint(x:100.0, y:200.0))
-//        ctx?.setLineWidth(lineWidht)
-//
-//        //3
-//        ctx?.closePath()
-//        ctx?.strokePath()
+        return  (isInsideArea, sector)
     }
     
     //MARK: Draw Plane
