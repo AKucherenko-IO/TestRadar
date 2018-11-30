@@ -21,7 +21,7 @@ class ShapeView: UIView {
     let numberOfPlanes: Int = 20
     var dimentionPlane: CGFloat = 20
     let dimentionDelta: CGFloat = 2
-    var escSq: Int = 8
+    var availablePositions: Int = 8
     let cirlcleColor: UIColor = UIColor.green
     let circleBorderColor: UIColor = UIColor.black
     
@@ -29,7 +29,7 @@ class ShapeView: UIView {
     var radiusRadarArray: [CGFloat] = []
     var planeRadius: CGFloat = 0
     var neighbors: Int = 0
-    var overlayPlane:Bool = false
+    var isOverlayPlane:Bool = false
     
     //MARK: - init View with param
     required init?(coder aDecoder: NSCoder) {
@@ -81,12 +81,12 @@ class ShapeView: UIView {
   
         while  (i <= numberOfPlanes) {
             
-            let planeLocationX = CGFloat.random(in: 0..<frameSize)
-            let planeLocationY = CGFloat.random(in: 0..<frameSize)
-            let flag = checkPosition(x: planeLocationX, y: planeLocationY, center: center, delta: radiusDelta)
+            let planePositionX = CGFloat.random(in: 0..<frameSize)
+            let planePositionY = CGFloat.random(in: 0..<frameSize)
+            let flag = checkPosition(x: planePositionX, y: planePositionY, center: center, delta: radiusDelta)
 
             if (flag) {
-                let planeLocation = CGPoint (x: planeLocationX, y: planeLocationY)
+                let planeLocation = CGPoint (x: planePositionX, y: planePositionY)
                 let planeSize = CGSize (width: dimentionPlane, height: dimentionPlane)
                 let plane = CGRect (origin: planeLocation, size: planeSize)
     
@@ -95,10 +95,10 @@ class ShapeView: UIView {
                 drawRectangle(size: plane, color: planeColor.cgColor)
 //                addImagesToSubview (location: plane)
                 let avgNeighborsAtObject = neighbors / i
-                if avgNeighborsAtObject >= escSq {
+                if avgNeighborsAtObject >= availablePositions {
                     
                     print ("AVG: \(avgNeighborsAtObject) N planes:\(i)")
-                    overlayPlane = true
+                    isOverlayPlane = true
                     
                 }
                 i += 1
@@ -163,7 +163,7 @@ class ShapeView: UIView {
                 
                 let generatedRect =  CGRect (origin: randomPlane.position, size: randomPlane.size)
                 let savedRect = CGRect (origin: savedPlane.position, size: savedPlane.size)
-                if (generatedRect.intersects(savedRect) && !overlayPlane) {
+                if (generatedRect.intersects(savedRect) && !isOverlayPlane) {
                     
                     notIntersectsInArea = false
                     
