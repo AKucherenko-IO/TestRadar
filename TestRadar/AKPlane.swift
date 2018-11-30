@@ -13,6 +13,6 @@ class AKPlane: NSObject {
     var position:CGPoint = CGPoint.zero
     var size:CGSize = CGSize.zero
     var area:Int = 0
-    var neighbors: Int = 8
+    var neighbors: Int = 0
 
 }
