@@ -18,7 +18,7 @@ class ShapeView: UIView {
     let imageNamePlane2 = "plane-2"
     let lineWidht: CGFloat = 2
     let numberOfCircles: Int = 3
-    let numberOfPlanes: Int = 65
+    let numberOfPlanes: Int = 20
     var dimentionPlane: CGFloat = 20
     let dimentionDelta: CGFloat = 2
     var escSq: Int = 8
@@ -145,36 +145,36 @@ class ShapeView: UIView {
     //MARK:  Check Intersections with saved objects
     func checkIntersectsInArea(x: CGFloat, y: CGFloat, sector: Int, positionRadius: CGFloat, delta: CGFloat) -> Bool {
         
-        var isIntersectsInArea = false
-        let genPlane = AKPlane ()
-        genPlane.position = CGPoint (x: x, y: y)
-        genPlane.size = CGSize (width: dimentionPlane, height: dimentionPlane)
+        var notIntersectsInArea = false
+        let randomPlane = AKPlane ()
+        randomPlane.position = CGPoint (x: x, y: y)
+        randomPlane.size = CGSize (width: dimentionPlane, height: dimentionPlane)
         
         if (allRandomPlanesInArea[sector].count == 0) {
             
-            allRandomPlanesInArea[sector].append(genPlane)
-            isIntersectsInArea = true
+            allRandomPlanesInArea[sector].append(randomPlane)
+            notIntersectsInArea = true
             
-            return isIntersectsInArea
+            return notIntersectsInArea
             
         }else{
             
             for savedPlane:AKPlane in allRandomPlanesInArea[sector] {
                 
-                let generatedRect =  CGRect (origin: genPlane.position, size: genPlane.size)
+                let generatedRect =  CGRect (origin: randomPlane.position, size: randomPlane.size)
                 let savedRect = CGRect (origin: savedPlane.position, size: savedPlane.size)
                 if (generatedRect.intersects(savedRect) && !overlayPlane) {
                     
-                    isIntersectsInArea = false
+                    notIntersectsInArea = false
                     
-                    return isIntersectsInArea
+                    return notIntersectsInArea
                 }
                     
-                isIntersectsInArea = true
+                notIntersectsInArea = true
                     
                 let nRect = CGRect (x: x-dimentionPlane, y: y-dimentionPlane, width: 3*dimentionPlane, height: 3*dimentionPlane)
                 if nRect.intersects(savedRect) {
-                    genPlane.neighbors += 1
+                    randomPlane.neighbors += 1
                     savedPlane.neighbors += 1
                     neighbors += 1
                     
@@ -182,16 +182,16 @@ class ShapeView: UIView {
             }
             
             if (positionRadius + 3*planeRadius) >= radiusRadarArray[sector] {
-                genPlane.neighbors += 1
+                randomPlane.neighbors += 1
                 neighbors += 1
             }
             if ((positionRadius - 3*planeRadius) <= radiusRadarArray[sector]-delta) {
-                genPlane.neighbors += 1
+                randomPlane.neighbors += 1
                 neighbors += 1
             }
-        allRandomPlanesInArea[sector].append(genPlane)
+        allRandomPlanesInArea[sector].append(randomPlane)
         }
-    return isIntersectsInArea
+    return notIntersectsInArea
     }
     
     
