@@ -29,6 +29,7 @@ class ShapeView: UIView {
     var radiusRadarArray: [CGFloat] = []
     var planeRadius: CGFloat = 0
     var neighbors: Int = 0
+    var overlayPlane:Bool = false
     
     //MARK: - init View with param
     required init?(coder aDecoder: NSCoder) {
@@ -97,14 +98,12 @@ class ShapeView: UIView {
                 if avgNeighborsAtObject >= escSq {
                     
                     print ("AVG: \(avgNeighborsAtObject) N planes:\(i)")
-                    i = numberOfPlanes
+                    overlayPlane = true
                     
                 }
                 i += 1
             }
-            
         }
-        
     }
 
     func  generateRandomColor() -> (red: CGFloat, green: CGFloat, blue: CGFloat) {
@@ -164,7 +163,7 @@ class ShapeView: UIView {
                 
                 let generatedRect =  CGRect (origin: genPlane.position, size: genPlane.size)
                 let savedRect = CGRect (origin: savedPlane.position, size: savedPlane.size)
-                if generatedRect.intersects(savedRect) {
+                if (generatedRect.intersects(savedRect) && !overlayPlane) {
                     
                     isIntersectsInArea = false
                     
@@ -180,7 +179,7 @@ class ShapeView: UIView {
                     neighbors += 1
                     
                 }
-                }
+            }
             
             if (positionRadius + 3*planeRadius) >= radiusRadarArray[sector] {
                 genPlane.neighbors += 1
