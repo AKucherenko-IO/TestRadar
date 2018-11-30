@@ -12,10 +12,8 @@ import UIKit
 
 class ShapeView: UIView {
 
-    
     //MARK: Define parameters
     let imageNamePlane1 = "plane-1"
-    let imageNamePlane2 = "plane-2"
     let lineWidht: CGFloat = 2
     let numberOfCircles: Int = 3
     let numberOfPlanes: Int = 20
@@ -41,8 +39,7 @@ class ShapeView: UIView {
         backgroundColor = .white
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight =  UIScreen.main.bounds.height
-        print("Screen: width:\(screenWidth) height:\(screenHeight)")
-
+        
         let rectSize = screenWidth > screenHeight ? screenHeight : screenWidth
         let viewRectX: CGFloat = 0;
         let viewRectY: CGFloat = screenHeight/2.0 - rectSize/2.0
@@ -57,13 +54,12 @@ class ShapeView: UIView {
         let frameSize = self.frame.size.width
         let halfFrameSize = frameSize / 2.0
         let center = CGPoint(x: halfFrameSize, y:halfFrameSize)
-        print ("Circle: center: \(center) frame: \(frameSize) \(frameSize)")
         var radius: CGFloat = halfFrameSize - lineWidht
         let radiusDelta: CGFloat = radius / CGFloat(numberOfCircles)
         
-        
         //MARK: -  Generate Radar Circles
         for _ in 0..<numberOfCircles {
+            
             drawCircle(center: center, radius: radius)
             radiusRadarArray.append(radius)
             radius -= radiusDelta
@@ -86,6 +82,7 @@ class ShapeView: UIView {
             let flag = checkPosition(x: planePositionX, y: planePositionY, center: center, delta: radiusDelta)
 
             if (flag) {
+                
                 let planeLocation = CGPoint (x: planePositionX, y: planePositionY)
                 let planeSize = CGSize (width: dimentionPlane, height: dimentionPlane)
                 let plane = CGRect (origin: planeLocation, size: planeSize)
@@ -95,15 +92,19 @@ class ShapeView: UIView {
                 drawRectangle(size: plane, color: planeColor.cgColor)
 //                addImagesToSubview (location: plane)
                 let avgNeighborsAtObject = neighbors / i
+                
                 if avgNeighborsAtObject >= availablePositions {
                     
-                    print ("AVG: \(avgNeighborsAtObject) N planes:\(i)")
                     isOverlayPlane = true
                     
                 }
+            
                 i += 1
+        
             }
+        
         }
+        
     }
 
     func  generateRandomColor() -> (red: CGFloat, green: CGFloat, blue: CGFloat) {
@@ -112,6 +113,7 @@ class ShapeView: UIView {
         let green = CGFloat.random(in: 0...1.0)
         let blue = CGFloat.random(in: 0...1.0)
         return (red, green, blue )
+        
     }
     
     func checkPosition(x: CGFloat, y: CGFloat, center: CGPoint, delta: CGFloat) -> Bool {
@@ -126,13 +128,18 @@ class ShapeView: UIView {
         let conditionRule = pow(xDelta,2) + pow(yDelta,2)
         let positionRadius = sqrt(conditionRule)
         var sector = Int (abs((radiusRadarArray[0] - positionRadius)) / delta)
+        
         sector = (positionRadius != 0 ) ? sector :  radiusRadarArray.count - 1
+        
         let indent = lineWidht + dimentionDelta
         let correctionOut = radiusRadarArray[sector] - planeRadius - indent
         let radarBorderOut  = pow(correctionOut,2)
+        
         if (sector < radiusRadarArray.count - 1) {
+        
             let correctionIn = radiusRadarArray[sector+1] + planeRadius + indent
             radarBorderIn  = pow(correctionIn,2)
+        
         }
 
         if (radarBorderOut > conditionRule)&&( conditionRule >= radarBorderIn) {
@@ -140,7 +147,9 @@ class ShapeView: UIView {
             isInsideArea = checkIntersectsInArea(x: x, y: y, sector: sector, positionRadius: positionRadius, delta: delta)
 
         }
+        
         return  isInsideArea
+        
     }
     //MARK:  Check Intersections with saved objects
     func checkIntersectsInArea(x: CGFloat, y: CGFloat, sector: Int, positionRadius: CGFloat, delta: CGFloat) -> Bool {
@@ -163,6 +172,7 @@ class ShapeView: UIView {
                 
                 let generatedRect =  CGRect (origin: randomPlane.position, size: randomPlane.size)
                 let savedRect = CGRect (origin: savedPlane.position, size: savedPlane.size)
+            
                 if (generatedRect.intersects(savedRect) && !isOverlayPlane) {
                     
                     notIntersectsInArea = false
@@ -172,8 +182,9 @@ class ShapeView: UIView {
                     
                 notIntersectsInArea = true
                     
-                let nRect = CGRect (x: x-dimentionPlane, y: y-dimentionPlane, width: 3*dimentionPlane, height: 3*dimentionPlane)
-                if nRect.intersects(savedRect) {
+                let overSizePlane = CGRect (x: x-dimentionPlane, y: y-dimentionPlane, width: 3*dimentionPlane, height: 3*dimentionPlane)
+                
+                if overSizePlane.intersects(savedRect) {
                     randomPlane.neighbors += 1
                     savedPlane.neighbors += 1
                     neighbors += 1
@@ -189,11 +200,14 @@ class ShapeView: UIView {
                 randomPlane.neighbors += 1
                 neighbors += 1
             }
-        allRandomPlanesInArea[sector].append(randomPlane)
+        
+            allRandomPlanesInArea[sector].append(randomPlane)
+        
         }
+        
     return notIntersectsInArea
+        
     }
-    
     
     //MARK: Place Plane Images on subview
     func addImagesToSubview(location: CGRect){
@@ -208,15 +222,13 @@ class ShapeView: UIView {
     
     //MARK: Draw Plane
     func drawRectangle(size: CGRect, color: CGColor) {
+     
         let ctx = UIGraphicsGetCurrentContext()
-        
         ctx?.addRect(size)
-
         ctx?.setLineWidth(lineWidht+2)
         ctx?.setStrokeColor(color)
         ctx?.strokePath()
-//        ctx?.setFillColor(color)
-//        ctx?.fillPath()
+
     }
     
     //MARK: - Draw Circle
@@ -227,7 +239,6 @@ class ShapeView: UIView {
         let endAngle: CGFloat = CGFloat(2 * Double.pi)
         ctx?.addArc(center: center, radius: radius, startAngle: 0, endAngle: endAngle, clockwise: true)
         ctx?.setLineWidth(lineWidht)
-        
         ctx?.setStrokeColor(cirlcleColor.cgColor)
         ctx?.strokePath()
         

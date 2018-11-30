@@ -122,22 +122,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestRadar/ShapeView.swift"
-            timestampString = "565262871.263618"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
-            landmarkName = "drawRectangle(size:color:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TestRadar/ShapeView.swift"
             timestampString = "565262871.264583"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -191,7 +175,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "148"
             endingLineNumber = "148"
-            landmarkName = "checkIntersectsInArea(x:y:sector:positionRadius:delta:)"
+            landmarkName = "checkPosition(x:y:center:delta:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
