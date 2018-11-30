@@ -1,5 +1,5 @@
 //
-//  ShapeView.swift
+//  AKRadarView.swift
 //  TestRadar
 //
 //  Created by Andrei Kucherenko on 24/11/2018.
@@ -10,7 +10,7 @@ import UIKit
 
 //@IBDesignable
 
-class ShapeView: UIView {
+class AKRadarView: UIView {
 
     //MARK: Define parameters
     let imageNamePlane1 = "plane-1"

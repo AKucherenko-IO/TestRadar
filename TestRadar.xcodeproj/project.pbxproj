@@ -12,7 +12,7 @@
 		4111D30721A8CBDB003B9E4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4111D30521A8CBDB003B9E4D /* Main.storyboard */; };
 		4111D30921A8CBE0003B9E4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4111D30821A8CBE0003B9E4D /* Assets.xcassets */; };
 		4111D30C21A8CBE0003B9E4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4111D30A21A8CBE0003B9E4D /* LaunchScreen.storyboard */; };
-		4111D31421A94A1E003B9E4D /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4111D31321A94A1E003B9E4D /* ShapeView.swift */; };
+		4111D31421A94A1E003B9E4D /* AKRadarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4111D31321A94A1E003B9E4D /* AKRadarView.swift */; };
 		417B40AE21ADD89C0074D4BD /* AKPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B40AD21ADD89C0074D4BD /* AKPlane.swift */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +24,7 @@
 		4111D30821A8CBE0003B9E4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4111D30B21A8CBE0003B9E4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4111D30D21A8CBE0003B9E4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4111D31321A94A1E003B9E4D /* ShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeView.swift; sourceTree = "<group>"; };
+		4111D31321A94A1E003B9E4D /* AKRadarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKRadarView.swift; sourceTree = "<group>"; };
 		417B40AD21ADD89C0074D4BD /* AKPlane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPlane.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,7 +58,7 @@
 		4111D30021A8CBDB003B9E4D /* TestRadar */ = {
 			isa = PBXGroup;
 			children = (
-				4111D31321A94A1E003B9E4D /* ShapeView.swift */,
+				4111D31321A94A1E003B9E4D /* AKRadarView.swift */,
 				417B40AD21ADD89C0074D4BD /* AKPlane.swift */,
 				4111D30121A8CBDB003B9E4D /* AppDelegate.swift */,
 				4111D30321A8CBDB003B9E4D /* ViewController.swift */,
@@ -142,7 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				417B40AE21ADD89C0074D4BD /* AKPlane.swift in Sources */,
-				4111D31421A94A1E003B9E4D /* ShapeView.swift in Sources */,
+				4111D31421A94A1E003B9E4D /* AKRadarView.swift in Sources */,
 				4111D30421A8CBDB003B9E4D /* ViewController.swift in Sources */,
 				4111D30221A8CBDB003B9E4D /* AppDelegate.swift in Sources */,
 			);
