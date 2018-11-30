@@ -16,8 +16,8 @@ class ShapeView: UIView {
     let imageNamePlane1 = "plane-1"
     let lineWidht: CGFloat = 2
     let numberOfCircles: Int = 3
-    let numberOfPlanes: Int = 20
-    var dimentionPlane: CGFloat = 20
+    let numberOfPlanes: Int = 30
+    var dimentionPlane: CGFloat = 30
     let dimentionDelta: CGFloat = 2
     var availablePositions: Int = 8
     let cirlcleColor: UIColor = UIColor.green
@@ -87,10 +87,7 @@ class ShapeView: UIView {
                 let planeSize = CGSize (width: dimentionPlane, height: dimentionPlane)
                 let plane = CGRect (origin: planeLocation, size: planeSize)
     
-                let randomColor = generateRandomColor()
-                let planeColor = UIColor (red: randomColor.red, green: randomColor.green, blue: randomColor.blue, alpha: 1)
-                drawRectangle(size: plane, color: planeColor.cgColor)
-//                addImagesToSubview (location: plane)
+                addImagesToSubview (location: plane)
                 let avgNeighborsAtObject = neighbors / i
                 
                 if avgNeighborsAtObject >= availablePositions {
@@ -107,14 +104,6 @@ class ShapeView: UIView {
         
     }
 
-    func  generateRandomColor() -> (red: CGFloat, green: CGFloat, blue: CGFloat) {
-        
-        let red = CGFloat.random(in: 0...1.0)
-        let green = CGFloat.random(in: 0...1.0)
-        let blue = CGFloat.random(in: 0...1.0)
-        return (red, green, blue )
-        
-    }
     
     func checkPosition(x: CGFloat, y: CGFloat, center: CGPoint, delta: CGFloat) -> Bool {
         
@@ -218,17 +207,6 @@ class ShapeView: UIView {
         planeImage!.frame = location
         self.addSubview(planeImage!)
         
-    }
-    
-    //MARK: Draw Plane
-    func drawRectangle(size: CGRect, color: CGColor) {
-     
-        let ctx = UIGraphicsGetCurrentContext()
-        ctx?.addRect(size)
-        ctx?.setLineWidth(lineWidht+2)
-        ctx?.setStrokeColor(color)
-        ctx?.strokePath()
-
     }
     
     //MARK: - Draw Circle
