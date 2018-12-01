@@ -16,9 +16,9 @@ class AKRadarView: UIView {
     let imageNamePlane1 = "plane-1"
     let lineWidht: CGFloat = 2
     let numberOfCircles: Int = 3
-    let numberOfPlanes: Int = 30
-    var dimentionPlane: CGFloat = 30
-    let dimentionDelta: CGFloat = 2
+    let numberOfPlanes: Int = 20
+    var dimensionPlane: CGFloat = 20
+    let dimensionDelta: CGFloat = 5
     var availablePositions: Int = 8
     let cirlcleColor: UIColor = UIColor.green
     let circleBorderColor: UIColor = UIColor.black
@@ -68,9 +68,9 @@ class AKRadarView: UIView {
 
         }
         
-        dimentionPlane =  radiusDelta > dimentionPlane ? dimentionPlane : radiusDelta/2
+        dimensionPlane = radiusDelta > dimensionPlane ? dimensionPlane : radiusDelta/2
         
-        planeRadius = sqrt(2)/2 * dimentionPlane
+        planeRadius = sqrt(2)/2 * dimensionPlane
 
         //MARK: - Generate Planes locations
         var i: Int = 1;
@@ -80,11 +80,11 @@ class AKRadarView: UIView {
             let planePositionX = CGFloat.random(in: 0..<frameSize)
             let planePositionY = CGFloat.random(in: 0..<frameSize)
             let flag = checkPosition(x: planePositionX, y: planePositionY, center: center, delta: radiusDelta)
-
+            
             if (flag) {
                 
                 let planeLocation = CGPoint (x: planePositionX, y: planePositionY)
-                let planeSize = CGSize (width: dimentionPlane, height: dimentionPlane)
+                let planeSize = CGSize (width: dimensionPlane, height: dimensionPlane)
                 let plane = CGRect (origin: planeLocation, size: planeSize)
     
                 addImagesToSubview (location: plane)
@@ -109,7 +109,7 @@ class AKRadarView: UIView {
         
         var isInsideArea = false
         var radarBorderIn = CGFloat(0)
-        let halfSize = dimentionPlane / 2.0
+        let halfSize = dimensionPlane / 2.0
         let planeCenterX = x + halfSize
         let planeCenterY = y + halfSize
         let xDelta = planeCenterX - center.x
@@ -120,7 +120,7 @@ class AKRadarView: UIView {
         
         sector = (positionRadius != 0 ) ? sector :  radiusRadarArray.count - 1
         
-        let indent = lineWidht + dimentionDelta
+        let indent = lineWidht + dimensionDelta
         let correctionOut = radiusRadarArray[sector] - planeRadius - indent
         let radarBorderOut  = pow(correctionOut,2)
         
@@ -146,7 +146,7 @@ class AKRadarView: UIView {
         var notIntersectsInArea = false
         let randomPlane = AKPlane ()
         randomPlane.position = CGPoint (x: x, y: y)
-        randomPlane.size = CGSize (width: dimentionPlane, height: dimentionPlane)
+        randomPlane.size = CGSize (width: dimensionPlane, height: dimensionPlane)
         
         if (allRandomPlanesInArea[sector].count == 0) {
             
@@ -171,7 +171,7 @@ class AKRadarView: UIView {
                     
                 notIntersectsInArea = true
                     
-                let overSizePlane = CGRect (x: x-dimentionPlane, y: y-dimentionPlane, width: 3*dimentionPlane, height: 3*dimentionPlane)
+                let overSizePlane = CGRect (x: x-dimensionPlane, y: y-dimensionPlane, width: 3*dimensionPlane, height: 3*dimensionPlane)
                 
                 if overSizePlane.intersects(savedRect) {
                     randomPlane.neighbors += 1
