@@ -8,23 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		4111D30221A8CBDB003B9E4D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4111D30121A8CBDB003B9E4D /* AppDelegate.swift */; };
-		4111D30421A8CBDB003B9E4D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4111D30321A8CBDB003B9E4D /* ViewController.swift */; };
+		4111D30421A8CBDB003B9E4D /* AKRadarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4111D30321A8CBDB003B9E4D /* AKRadarViewController.swift */; };
 		4111D30721A8CBDB003B9E4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4111D30521A8CBDB003B9E4D /* Main.storyboard */; };
 		4111D30921A8CBE0003B9E4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4111D30821A8CBE0003B9E4D /* Assets.xcassets */; };
 		4111D30C21A8CBE0003B9E4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4111D30A21A8CBE0003B9E4D /* LaunchScreen.storyboard */; };
 		4111D31421A94A1E003B9E4D /* AKRadarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4111D31321A94A1E003B9E4D /* AKRadarView.swift */; };
+		415F6B7C21BC91DB005C095C /* AKPlaneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415F6B7B21BC91DB005C095C /* AKPlaneView.swift */; };
+		415F6B7E21BF75BA005C095C /* AKTmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415F6B7D21BF75BA005C095C /* AKTmp.swift */; };
+		415F6B8021BF904E005C095C /* AKTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415F6B7F21BF904E005C095C /* AKTest.swift */; };
 		417B40AE21ADD89C0074D4BD /* AKPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B40AD21ADD89C0074D4BD /* AKPlane.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4111D2FE21A8CBDB003B9E4D /* TestRadar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestRadar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4111D30121A8CBDB003B9E4D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4111D30321A8CBDB003B9E4D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4111D30321A8CBDB003B9E4D /* AKRadarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKRadarViewController.swift; sourceTree = "<group>"; };
 		4111D30621A8CBDB003B9E4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4111D30821A8CBE0003B9E4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4111D30B21A8CBE0003B9E4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4111D30D21A8CBE0003B9E4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4111D31321A94A1E003B9E4D /* AKRadarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKRadarView.swift; sourceTree = "<group>"; };
+		415F6B7B21BC91DB005C095C /* AKPlaneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPlaneView.swift; sourceTree = "<group>"; };
+		415F6B7D21BF75BA005C095C /* AKTmp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKTmp.swift; sourceTree = "<group>"; };
+		415F6B7F21BF904E005C095C /* AKTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKTest.swift; sourceTree = "<group>"; };
 		417B40AD21ADD89C0074D4BD /* AKPlane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPlane.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,9 +65,12 @@
 			isa = PBXGroup;
 			children = (
 				4111D31321A94A1E003B9E4D /* AKRadarView.swift */,
+				415F6B7B21BC91DB005C095C /* AKPlaneView.swift */,
+				415F6B7D21BF75BA005C095C /* AKTmp.swift */,
+				415F6B7F21BF904E005C095C /* AKTest.swift */,
 				417B40AD21ADD89C0074D4BD /* AKPlane.swift */,
 				4111D30121A8CBDB003B9E4D /* AppDelegate.swift */,
-				4111D30321A8CBDB003B9E4D /* ViewController.swift */,
+				4111D30321A8CBDB003B9E4D /* AKRadarViewController.swift */,
 				4111D30521A8CBDB003B9E4D /* Main.storyboard */,
 				4111D30821A8CBE0003B9E4D /* Assets.xcassets */,
 				4111D30A21A8CBE0003B9E4D /* LaunchScreen.storyboard */,
@@ -80,6 +89,7 @@
 				4111D2FA21A8CBDB003B9E4D /* Sources */,
 				4111D2FB21A8CBDB003B9E4D /* Frameworks */,
 				4111D2FC21A8CBDB003B9E4D /* Resources */,
+				41BC75FA21CB116D0098508D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -136,14 +146,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		41BC75FA21CB116D0098508D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4111D2FA21A8CBDB003B9E4D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				417B40AE21ADD89C0074D4BD /* AKPlane.swift in Sources */,
+				415F6B8021BF904E005C095C /* AKTest.swift in Sources */,
+				415F6B7E21BF75BA005C095C /* AKTmp.swift in Sources */,
 				4111D31421A94A1E003B9E4D /* AKRadarView.swift in Sources */,
-				4111D30421A8CBDB003B9E4D /* ViewController.swift in Sources */,
+				4111D30421A8CBDB003B9E4D /* AKRadarViewController.swift in Sources */,
+				415F6B7C21BC91DB005C095C /* AKPlaneView.swift in Sources */,
 				4111D30221A8CBDB003B9E4D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
