@@ -8,15 +8,14 @@
 
 import UIKit
 
-//@IBDesignable
-
 class AKRadarViewController: UIViewController {
 
-    let numberOfLevels: Int = 2
-    let numberOfPlanes: Int  = 15
+    // MARK: Define parameters
+    let numberOfLevels: Int = 10
+    let numberOfPlanes: Int  = 1000
     let lineWidht: CGFloat = 2
     weak var radarView: UIView!
-    var levelCenterRadiusArray: [CGFloat] = []
+    var levelRadiusArray: [CGFloat] = []
     var levelDelta: CGFloat = 4
     var planeSize: CGFloat = 20
     var viewCenter: CGPoint = CGPoint(x: 0, y: 0)
@@ -29,39 +28,45 @@ class AKRadarViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        planeSize = planeSize > levelDelta ? levelDelta - 2*lineWidht : planeSize
+        let planeCircleDia = 2 * planeSize / CGFloat(sqrtf(2))
+        planeSize = planeCircleDia > levelDelta ? (levelDelta * CGFloat(sqrtf(2)) / 2 ) : planeSize
         let planeSizeView = CGSize(width: planeSize, height: planeSize)
 
         // MARK: Place plane on RadarView
         var planeIndex = 0
-        let planeCircleRadius = planeSize * CGFloat(sqrtf(2))
-        let angleDelta = asin (planeCircleRadius / levelCenterRadiusArray[0])
-        let numPlane = Int (2 * CGFloat.pi / angleDelta)
-        while  planeIndex <= numPlane {
+//        let planeCircleRadius = planeSize * CGFloat(sqrtf(2))
+//        let angleDelta = asin (planeCircleRadius / levelRadiusArray[0])
+//        let numPlane = Int (2 * CGFloat.pi / angleDelta)
+
+        while  planeIndex < numberOfPlanes {
             let planeLocation = coordinateGeneration()
             drawPlaneView(planeCoordinate: planeLocation, planeSize: planeSizeView, borderWidht: lineWidht)
             planeIndex += 1
-            print ("angle:\(anglePos)")
-            self.anglePos = anglePos + angleDelta
+//            self.anglePos = anglePos + angleDelta
         }
-        print("innerRadius:\(levelCenterRadiusArray)")
 
     }
 
+    // MARK: Plane coordinate random generation
     func coordinateGeneration () -> CGPoint {
-//        let fromDegree = 180 / CGFloat.pi
-//        let toDegree =  CGFloat.pi / 180
-        let randomRadiusIndex = Int.random(in: 0..<levelCenterRadiusArray.count)
-        let randomDeltaRadius: CGFloat = 0
-        let randomAngle = CGFloat(self.anglePos)
-        //CGFloat.random(in: 0..360)
-        let randomRadius =  randomDeltaRadius + levelCenterRadiusArray[randomRadiusIndex]
-        let planePositionX = viewCenter.x + CGFloat(randomRadius * cos(randomAngle)) - planeSize / 2
-        let planePositionY = viewCenter.y + CGFloat(randomRadius * sin(randomAngle)) -  planeSize / 2
+        let fromDegree =  CGFloat.pi / 180
+        let randomRadiusIndex = Int.random(in: 0..<levelRadiusArray.count)
+        let planeCircleRadius = planeSize / CGFloat(sqrtf(2))
+        let halfPlaneSize = planeSize / 2
+        var levelDeltaCorrection = levelDelta - planeSize - 4 * lineWidht
+        if randomRadiusIndex == levelRadiusArray.count - 1 {
+            levelDeltaCorrection = levelDelta
+        }
+        let randomDeltaRadius: CGFloat = levelDeltaCorrection > 0 ? CGFloat.random(in: 0...levelDeltaCorrection) : 0
+        let randomAngle = CGFloat.random(in: 0...360) * fromDegree
+        let randomRadius =  levelRadiusArray[randomRadiusIndex] - randomDeltaRadius - planeCircleRadius
+        let planePositionX = viewCenter.x + CGFloat(randomRadius * cos(randomAngle)) - halfPlaneSize
+        let planePositionY = viewCenter.y + CGFloat(randomRadius * sin(randomAngle)) - halfPlaneSize
         let coordinate = CGPoint(x: planePositionX, y: planePositionY)
         return coordinate
     }
 
+    // MARK: PlaneView creation
     func drawPlaneView(planeCoordinate: CGPoint, planeSize: CGSize, borderWidht: CGFloat) {
         let planeView = AKPlaneView()
         planeView.planeLineWidht = borderWidht
@@ -74,8 +79,8 @@ class AKRadarViewController: UIViewController {
         radarView.bringSubviewToFront(planeView)
     }
 
+    // MARK: RadarView creation
     func drawRadarView() {
-
         let lineWidhtCorrection = 2*lineWidht
         let screenWidth = self.view.frame.width
         let screenHeight = self.view.frame.height
@@ -87,12 +92,6 @@ class AKRadarViewController: UIViewController {
         let viewRectY: CGFloat = screenHeight/2.0 - halfFrameSize
         var levelRadius: CGFloat = halfFrameSize - lineWidhtCorrection
         levelDelta = levelRadius / CGFloat(numberOfLevels)
-        let levelCenter = levelDelta / 2.0
-
-        // MARK: Check Center
-        print ("Screen size: width=\(screenWidth)\theight:\(screenHeight)")
-        print ("viewY: \(viewRectY) = \(screenHeight)/2 :: \(radarRectSize)/2")
-        print ("Frame Size:\(halfFrameSize)")
         let radarView = AKRadarView()
         radarView.radarLevelLineWidht = lineWidht
         radarView.radarLevelRadius = levelRadius
@@ -111,12 +110,11 @@ class AKRadarViewController: UIViewController {
             radarView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             radarView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
             ])
+
         for _ in 0..<radarView.radarLevelNumber {
-            let levelCenterRadius = levelRadius - levelCenter
-            levelCenterRadiusArray.append(levelCenterRadius)
+            levelRadiusArray.append(levelRadius)
             levelRadius -= levelDelta
         }
-
     }
 
 }

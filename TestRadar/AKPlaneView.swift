@@ -8,8 +8,6 @@
 
 import UIKit
 
-@IBDesignable
-
 class AKPlaneView: UIView {
 
     // MARK: Define parameters
@@ -21,7 +19,7 @@ class AKPlaneView: UIView {
     var planeRect: Bool = true
     let planeRectAlpha: CGFloat = 1
 
-    // MARK: Draw Plane
+    // MARK: Draw PlaneView
     override func draw(_ rect: CGRect) {
         let plane = CGRect (origin: planeCoordinate, size: planeSize)
         if planeRect {

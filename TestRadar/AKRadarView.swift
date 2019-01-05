@@ -8,8 +8,6 @@
 
 import UIKit
 
-@IBDesignable
-
 class AKRadarView: UIView {
 
     // MARK: Define parameters
@@ -21,9 +19,9 @@ class AKRadarView: UIView {
     var radarLevelRadius: CGFloat = 0.0
     var radarCenter: CGPoint = CGPoint(x: 0, y: 0)
 
-    // MARK: Draw Radar
+    // MARK: Draw RadarView
     override func draw(_ rect: CGRect) {
-        // MARK: - Generate Radar Circles and svae innerArea for planes
+        // MARK: - Generate RadarView Levels
         for _ in 0..<radarLevelNumber {
             drawCircle(center: radarCenter, radius: radarLevelRadius)
             radarLevelRadius -= radarLevelDelta
