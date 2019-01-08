@@ -13,19 +13,19 @@ class AKPlaneView: UIView {
     // MARK: Define parameters
     var planeImageName = "plane-1"
     var planeLineWidht: CGFloat = 2
-    let planeCoordinate: CGPoint = CGPoint(x: 0, y: 0)
+    let planeOrigin: CGPoint = CGPoint(x: 0, y: 0)
     var planeSize: CGSize = CGSize(width: 20, height: 20)
-    var planeImage: Bool = true
-    var planeRect: Bool = true
+    var planeImageShow: Bool = true
+    var planeRectShow: Bool = true
     let planeRectAlpha: CGFloat = 1
 
     // MARK: Draw PlaneView
     override func draw(_ rect: CGRect) {
-        let plane = CGRect (origin: planeCoordinate, size: planeSize)
-        if planeRect {
+        let plane = CGRect (origin: planeOrigin, size: planeSize)
+        if planeRectShow {
           drawPlaneRectangle(size: plane)
         }
-        if planeImage {
+        if planeImageShow {
         addImagesToSubview (location: plane)
         }
     }

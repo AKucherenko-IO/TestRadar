@@ -11,13 +11,13 @@ import UIKit
 class AKRadarViewController: UIViewController {
 
     // MARK: Define parameters
-    let numberOfLevels: Int = 10
-    let numberOfPlanes: Int  = 1000
+    let numberOfLevels: Int = 1
+    let numberOfPlanes: Int  = 10
     let lineWidht: CGFloat = 2
     weak var radarView: UIView!
     var levelRadiusArray: [CGFloat] = []
     var levelDelta: CGFloat = 4
-    var planeSize: CGFloat = 20
+    var planeSize: CGFloat = 30
     var viewCenter: CGPoint = CGPoint(x: 0, y: 0)
     var anglePos: CGFloat = 0
 
@@ -34,15 +34,11 @@ class AKRadarViewController: UIViewController {
 
         // MARK: Place plane on RadarView
         var planeIndex = 0
-//        let planeCircleRadius = planeSize * CGFloat(sqrtf(2))
-//        let angleDelta = asin (planeCircleRadius / levelRadiusArray[0])
-//        let numPlane = Int (2 * CGFloat.pi / angleDelta)
 
         while  planeIndex < numberOfPlanes {
             let planeLocation = coordinateGeneration()
             drawPlaneView(planeCoordinate: planeLocation, planeSize: planeSizeView, borderWidht: lineWidht)
             planeIndex += 1
-//            self.anglePos = anglePos + angleDelta
         }
 
     }
@@ -69,9 +65,10 @@ class AKRadarViewController: UIViewController {
     // MARK: PlaneView creation
     func drawPlaneView(planeCoordinate: CGPoint, planeSize: CGSize, borderWidht: CGFloat) {
         let planeView = AKPlaneView()
+//        planeView.planeImageName = "Plane145x145"
         planeView.planeLineWidht = borderWidht
-        planeView.planeRect = true
-        planeView.planeImage = true
+        planeView.planeRectShow = true
+        planeView.planeImageShow = true
         planeView.planeSize = planeSize
         planeView.frame = CGRect(origin: planeCoordinate, size: planeSize)
         planeView.backgroundColor = UIColor.init(white: 0.1, alpha: 0.0)
@@ -93,12 +90,12 @@ class AKRadarViewController: UIViewController {
         var levelRadius: CGFloat = halfFrameSize - lineWidhtCorrection
         levelDelta = levelRadius / CGFloat(numberOfLevels)
         let radarView = AKRadarView()
-        radarView.radarLevelLineWidht = lineWidht
-        radarView.radarLevelRadius = levelRadius
-        radarView.radarLevelDelta = levelDelta
+        radarView.radarLevelsLineWidht = lineWidht
+        radarView.radarLevelsRadius = levelRadius
+        radarView.radarLevelsDelta = levelDelta
         radarView.radarCenter = CGPoint(x: halfFrameSize, y: halfFrameSize)
-        radarView.radarLevelNumber = numberOfLevels
-        radarView.radarLevelBorderColor = .black
+        radarView.radarLevelsNumber = numberOfLevels
+        radarView.radarLevelsBorderColor = .black
         radarView.backgroundColor = .white
         radarView.frame = CGRect(x: viewRectX, y: viewRectY, width: radarRectSize, height: radarRectSize)
         self.view.addSubview(radarView)
@@ -111,7 +108,7 @@ class AKRadarViewController: UIViewController {
             radarView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
             ])
 
-        for _ in 0..<radarView.radarLevelNumber {
+        for _ in 0..<radarView.radarLevelsNumber {
             levelRadiusArray.append(levelRadius)
             levelRadius -= levelDelta
         }
