@@ -11,8 +11,10 @@ import UIKit
 class AKRadarViewController: UIViewController {
 
     // MARK: Define parameters
-    let numberOfLevels: Int = 1
-    let numberOfPlanes: Int  = 10
+    let planeRectShow = true
+    let planeImageShow =  true
+    let numberOfLevels: Int = 3
+    let numberOfPlanes: Int  = 100
     let lineWidht: CGFloat = 2
     weak var radarView: UIView!
     var levelRadiusArray: [CGFloat] = []
@@ -49,16 +51,16 @@ class AKRadarViewController: UIViewController {
         let randomRadiusIndex = Int.random(in: 0..<levelRadiusArray.count)
         let planeCircleRadius = planeSize / CGFloat(sqrtf(2))
         let halfPlaneSize = planeSize / 2
-        var levelDeltaCorrection = levelDelta - planeSize - 4 * lineWidht
+        var levelDeltaCorrection = levelDelta - 2 * planeCircleRadius - 2 * lineWidht
         if randomRadiusIndex == levelRadiusArray.count - 1 {
             levelDeltaCorrection = levelDelta
         }
         let randomDeltaRadius: CGFloat = levelDeltaCorrection > 0 ? CGFloat.random(in: 0...levelDeltaCorrection) : 0
         let randomAngle = CGFloat.random(in: 0...360) * fromDegree
         let randomRadius =  levelRadiusArray[randomRadiusIndex] - randomDeltaRadius - planeCircleRadius
-        let planePositionX = viewCenter.x + CGFloat(randomRadius * cos(randomAngle)) - halfPlaneSize
-        let planePositionY = viewCenter.y + CGFloat(randomRadius * sin(randomAngle)) - halfPlaneSize
-        let coordinate = CGPoint(x: planePositionX, y: planePositionY)
+        let planeCoordinateX = viewCenter.x - CGFloat(randomRadius * cos(randomAngle)) - halfPlaneSize
+        let planeCoordinateY = viewCenter.y - CGFloat(randomRadius * sin(randomAngle)) - halfPlaneSize
+        let coordinate = CGPoint(x: planeCoordinateX, y: planeCoordinateY)
         return coordinate
     }
 
@@ -67,8 +69,8 @@ class AKRadarViewController: UIViewController {
         let planeView = AKPlaneView()
 //        planeView.planeImageName = "Plane145x145"
         planeView.planeLineWidht = borderWidht
-        planeView.planeRectShow = true
-        planeView.planeImageShow = true
+        planeView.planeRectShow = planeRectShow
+        planeView.planeImageShow = planeImageShow
         planeView.planeSize = planeSize
         planeView.frame = CGRect(origin: planeCoordinate, size: planeSize)
         planeView.backgroundColor = UIColor.init(white: 0.1, alpha: 0.0)
@@ -85,7 +87,7 @@ class AKRadarViewController: UIViewController {
         let halfFrameSize = radarRectSize / 2.0
         viewCenter.x = halfFrameSize
         viewCenter.y = halfFrameSize
-        let viewRectX: CGFloat = 0
+        let viewRectX: CGFloat = screenWidth/2.0 - halfFrameSize
         let viewRectY: CGFloat = screenHeight/2.0 - halfFrameSize
         var levelRadius: CGFloat = halfFrameSize - lineWidhtCorrection
         levelDelta = levelRadius / CGFloat(numberOfLevels)

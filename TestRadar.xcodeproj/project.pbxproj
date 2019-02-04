@@ -14,8 +14,6 @@
 		4111D30C21A8CBE0003B9E4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4111D30A21A8CBE0003B9E4D /* LaunchScreen.storyboard */; };
 		4111D31421A94A1E003B9E4D /* AKRadarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4111D31321A94A1E003B9E4D /* AKRadarView.swift */; };
 		415F6B7C21BC91DB005C095C /* AKPlaneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415F6B7B21BC91DB005C095C /* AKPlaneView.swift */; };
-		415F6B7E21BF75BA005C095C /* AKTmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415F6B7D21BF75BA005C095C /* AKTmp.swift */; };
-		415F6B8021BF904E005C095C /* AKTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415F6B7F21BF904E005C095C /* AKTest.swift */; };
 		417B40AE21ADD89C0074D4BD /* AKPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B40AD21ADD89C0074D4BD /* AKPlane.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,8 +27,6 @@
 		4111D30D21A8CBE0003B9E4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4111D31321A94A1E003B9E4D /* AKRadarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKRadarView.swift; sourceTree = "<group>"; };
 		415F6B7B21BC91DB005C095C /* AKPlaneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPlaneView.swift; sourceTree = "<group>"; };
-		415F6B7D21BF75BA005C095C /* AKTmp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKTmp.swift; sourceTree = "<group>"; };
-		415F6B7F21BF904E005C095C /* AKTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKTest.swift; sourceTree = "<group>"; };
 		417B40AD21ADD89C0074D4BD /* AKPlane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPlane.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,8 +62,6 @@
 			children = (
 				4111D31321A94A1E003B9E4D /* AKRadarView.swift */,
 				415F6B7B21BC91DB005C095C /* AKPlaneView.swift */,
-				415F6B7D21BF75BA005C095C /* AKTmp.swift */,
-				415F6B7F21BF904E005C095C /* AKTest.swift */,
 				417B40AD21ADD89C0074D4BD /* AKPlane.swift */,
 				4111D30121A8CBDB003B9E4D /* AppDelegate.swift */,
 				4111D30321A8CBDB003B9E4D /* AKRadarViewController.swift */,
@@ -172,8 +166,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				417B40AE21ADD89C0074D4BD /* AKPlane.swift in Sources */,
-				415F6B8021BF904E005C095C /* AKTest.swift in Sources */,
-				415F6B7E21BF75BA005C095C /* AKTmp.swift in Sources */,
 				4111D31421A94A1E003B9E4D /* AKRadarView.swift in Sources */,
 				4111D30421A8CBDB003B9E4D /* AKRadarViewController.swift in Sources */,
 				415F6B7C21BC91DB005C095C /* AKPlaneView.swift in Sources */,

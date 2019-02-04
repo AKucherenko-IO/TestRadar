@@ -282,7 +282,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestRadar/AKPlaneView.swift"
-            timestampString = "568683066.272029"
+            timestampString = "570847787.977196"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "38"
@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestRadar/AKRadarViewController.swift"
-            timestampString = "568683066.2730269"
+            timestampString = "570847787.977291"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "coordinateGeneration()"
             landmarkType = "7">
          </BreakpointContent>
